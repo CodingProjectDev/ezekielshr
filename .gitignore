@@ -1,0 +1,12 @@
+node_modules/
+android/.gradle/
+android/local.properties
+android/app/build/
+*.log
+.DS_Store
+
+node_modules/
+.DS_Store
+.env
+.env.*
+*.zip

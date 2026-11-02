@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="First words placeholder">
+  <rect width="512" height="512" rx="72" fill="#E9E2F5"/>
+  <circle cx="256" cy="214" r="151" fill="#FFFFFF" opacity="0.52"/>
+  <text x="256" y="267" font-size="178" text-anchor="middle" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif">🍎 📚</text>
+  <text x="256" y="427" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#315D4E">First words</text>
+</svg>

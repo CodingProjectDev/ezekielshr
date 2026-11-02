@@ -1,0 +1,49 @@
+Little Discoveries — Local Learning Pictures in Settings
+======================================================
+
+WHAT'S NEW
+- Grown-ups (Settings) > Manage Learning Pictures.
+- No admin screen, no Firebase, no account, no server.
+- Add new photo cards to Everyday Words or Animals.
+- Replace existing cards such as Hand, Water, Cat or Dog.
+- Upload PNG, JPG, WebP and GIF (up to 8 MB per picture).
+- GIFs start as still previews and animate on tap.
+- Edit, remove, or restore the original built-in pictures.
+- Local IndexedDB storage; no images uploaded anywhere.
+- Export/Import a private JSON backup of your learning pictures.
+- Adds cards to Find the Animal and Voice Studio when applicable.
+
+INSTALL
+1. Back up your existing Little-Discoveries-V2 folder.
+2. Put this ZIP in Downloads.
+3. In VS Code terminal, change into your Little-Discoveries-V2 folder.
+4. Run:
+     unzip -o ~/Downloads/Little-Discoveries-Local-Pictures-Settings-Update.zip -d .
+     npm test
+     npm run build
+5. For Android, additionally run:
+     npm run android:sync
+6. For PWA, deploy the newly generated www/ folder and reopen the installed app online once.
+
+HOW TO USE
+1. Tap Grown-ups at the top of the app and complete the existing parent check.
+2. Tap Manage Learning Pictures.
+3. Choose Everyday Words or Animals.
+4. Choose Add a new picture, or Replace an existing picture.
+5. Choose photo, then Save picture.
+6. Return to First Words to see it on this device.
+
+IMPORTANT
+- Pictures are saved on that browser/PWA installation or Android app only.
+- Safari and an installed home-screen PWA may have separate storage even on the same device.
+- Your photos may be lost when deleting/reinstalling the app, clearing site data, or browser storage eviction.
+- Export a backup before reinstalling or clearing your device data.
+- There is no cloud sync; changing devices needs manually exported/imported backup.
+- Your built-in PNG/GIF assets and My Family recordings are not deleted by this update.
+- Uploaded GIFs need their own suitable content; replacing a picture with a still image intentionally does not play the old animal's GIF.
+- Only First Words and Animals (including Find the Animal) use these editable pictures.
+
+FILES CHANGED
+index.html, app.js, voice-studio.js, sw.js, scripts/build-web.mjs, package.json
+FILES ADDED
+pictures.js, pictures.css, tests/pictures.mjs, INSTALL-LOCAL-PICTURES.txt

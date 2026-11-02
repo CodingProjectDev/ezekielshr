@@ -1,0 +1,51 @@
+LITTLE DISCOVERIES — TAP AN ANIMAL TO PLAY ITS GIF
+
+WHAT CHANGED
+- Animal picture cards show still previews, not auto-playing animations.
+- Each preview comes from the same GIF, so the animal looks the same before
+  and during playback.
+- Tap a cat, dog, cow, elephant, bird, or sheep to hear its name and play
+  its real-motion clip once. Tap again to replay from the start.
+- GIFs stop automatically and return to their preview image after roughly
+  three seconds (the bird's shorter motion plays for about 1.4 seconds).
+- Only one animal moves at a time. Reduced-motion settings prevent playback.
+- The previous numbers 1–10 and three-learning-areas updates are included.
+
+HOW TO APPLY
+1. Download Little-Discoveries-Tap-to-Play-Animals.zip to your Mac.
+2. Open your existing Little-Discoveries-V2 folder in VS Code.
+3. Back up any newer changes to app.js, design.css, index.html, and sw.js.
+4. In that project's terminal, run:
+
+   unzip -o ~/Downloads/Little-Discoveries-Tap-to-Play-Animals.zip -d .
+
+5. Rebuild the web app:
+
+   npm run build
+
+6. Run tests:
+
+   npm test
+
+7. For an installed iPad PWA, deploy the updated files to your HTTPS host,
+   then reopen it online and let the new offline cache finish installing.
+   An installed PWA cannot update from files that live only on your Mac.
+
+8. To update the Android project:
+
+   npm run android:sync
+
+WHAT THIS PATCH DOES NOT CHANGE
+- First Words and its parent-recorded voice feature remain.
+- Little Numbers still shows 1–10.
+- Colors & Shapes, Play Together, My Family, and Grown-ups remain available.
+- Local family photos, voice recordings, and progress are not deleted.
+
+The project files in this update are based on your October 26 uploaded
+Little-Discoveries-V2(2).zip and the updates completed afterward in this
+conversation. If your Mac has newer edits, compare them before overwriting.
+
+LICENSING
+The animal animations come from real video footage under Creative Commons
+licenses. The attribution file and source links are retained in
+assets/animals/CREDITS.md and under Grown-ups > Animal animation credits.

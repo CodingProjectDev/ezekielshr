@@ -1,0 +1,40 @@
+LITTLE DISCOVERIES - THREE LEARNING AREAS UPDATE
+
+Removed:
+  Memory & Thinking
+  Music & Movement
+  Real-World Missions
+
+Kept:
+  First Words
+  Colors & Shapes
+  Little Numbers
+
+Kept separately: Play Together adventures, My Family, My Voice Studio,
+and parent settings. The removed module routes now return to the home screen.
+
+HOW TO APPLY THIS PATCH ON YOUR MAC
+
+1. Put the downloaded patch ZIP in Downloads.
+2. Open Terminal in VS Code for your existing Little-Discoveries-V2 project.
+3. Unzip the patch directly into that project (no temporary folder):
+
+   unzip -o ~/Downloads/Little-Discoveries-3-Areas-Update.zip -d .
+
+4. Rebuild the PWA/Android web files:
+
+   npm run build
+
+5. Restart your local web server. If this is a published installed PWA,
+   upload or deploy the updated files, then reopen or refresh the app.
+
+6. For Android projects, synchronize the new web bundle:
+
+   npm run android:sync
+
+This patch updates source files only. Existing images, assets, photos,
+and locally recorded family voices are not deleted.
+
+If your project has changed since Little-Discoveries-V2(2).zip was uploaded,
+review the changed files before overwriting, since this patch is based on
+that snapshot.

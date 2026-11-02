@@ -1,0 +1,811 @@
+/* Little Discoveries — Storybook UI refresh.
+   Loaded last so the entire experience shares one child-friendly visual language.
+   All activity logic, file paths, audio and parent tools remain unchanged. */
+
+:root {
+  --ink: #24483f;
+  --ink-soft: #536e64;
+  --forest: #286b58;
+  --paper: #fffaf2;
+  --cream: #fffefa;
+  --line: #e6e9dc;
+  --peach: #ffeadb;
+  --lilac: #f0e9ff;
+  --mint: #e5f5e8;
+  --sky: #e3f2ff;
+  --sunny: #fff3c9;
+  --pink: #ffe8ef;
+  --shadow: 0 11px 28px #375b4414;
+  --shadow-lift: 0 18px 34px #375b4426;
+}
+
+html { scroll-padding-top: 100px; }
+body {
+  background:
+    radial-gradient(ellipse 340px 300px at -5% 4%, #ffe6d299, transparent 90%),
+    radial-gradient(ellipse 390px 460px at 110% 35%, #e3f5ecb0, transparent 90%),
+    radial-gradient(ellipse 400px 340px at 0% 85%, #f3eafe8c, transparent 92%),
+    var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button, a { touch-action: manipulation; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 4px solid #f5a66a;
+  outline-offset: 4px;
+}
+button:disabled { cursor: not-allowed; }
+img { max-width: 100%; }
+h1, h2, h3 { color: #25493f; }
+
+/* Shared navigation and typography */
+.topbar {
+  padding: 15px max(20px, calc((100vw - 1190px) / 2));
+  background: #fffcf6ed;
+  border-bottom: 2px solid #e9eadf;
+  box-shadow: 0 3px 12px #436f5110;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.brand { gap: 13px; font-weight: 800; color: #265345; }
+.brand strong { color: #287d64; }
+.brand small { margin-top: 5px; color: #688372; font-size: 10px; }
+.brand-mark {
+  width: 53px; height: 53px;
+  border-radius: 19px;
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, #ffe9ae 0%, #ffcf91 100%);
+  box-shadow: inset 0 2px 0 #ffffffa6, 0 5px 10px #c5964c21;
+  color: #bd7543;
+  transform: rotate(-9deg);
+}
+.parent-link {
+  border: 2px solid #dce8d8;
+  color: #2b654e;
+  background: #eff8eb;
+  min-height: 52px;
+  border-radius: 100px;
+  font-size: 14px;
+  box-shadow: 0 3px 0 #2b654e10;
+}
+.parent-link:hover { background: #e3f4dd; }
+.page { max-width: 1230px; padding: 30px 25px 70px; }
+.eyebrow { color: #50765f; font-weight: 900; letter-spacing: 1.3px; }
+.pill {
+  background: #fffdf6cc;
+  border: 2px solid #dce9d6;
+  color: #356a54;
+  font-weight: 850;
+  padding: 9px 17px;
+}
+.button {
+  min-height: 56px;
+  padding: 13px 23px;
+  border-radius: 18px;
+  font-size: 15px;
+  font-weight: 850;
+  text-align: center;
+  transition: transform .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+.button.primary {
+  background: #28715b;
+  color: #fff;
+  box-shadow: 0 5px 0 #1749362c;
+}
+.button.primary:hover { background: #205d4d; }
+.button.light { background: #edf5e9; color: #2e6452; border: 1px solid #d4e3ce; }
+.button.light:hover { background: #e3efdc; }
+.button:active, .back-link:active, .parent-link:active { transform: translateY(2px); }
+
+/* A storybook opening, without extra controls for a toddler to navigate. */
+.hero {
+  background: linear-gradient(115deg, #ffe6d3, #fff0e1 57%, #efeaff);
+  border: 3px solid #fffdf8;
+  border-radius: 40px;
+  padding: clamp(30px, 4vw, 50px);
+  box-shadow: 0 15px 36px #ad8a6c18;
+}
+.hero::after {
+  width: 370px; height: 370px;
+  right: -125px; bottom: -170px;
+  border: 4px solid #ffffff82;
+}
+.hero-greeting { color: #667c63 !important; font-size: 16px !important; }
+.hero h1 { font-size: clamp(42px, 5.6vw, 67px); line-height: 1.05; letter-spacing: -2.4px; }
+.hero h1 em { color: #d8775f; }
+.hero-description { font-size: 17px !important; color: #546e61 !important; line-height: 1.65 !important; }
+.hero-art { height: 336px; }
+.hero-art::before {
+  width: 314px; height: 314px;
+  border: 4px solid #fffef7;
+  background: #fffdf8b8;
+  box-shadow: 0 14px 26px #986e4b14;
+}
+.hero-art img {
+  width: 290px; height: 290px;
+  border-radius: 50%;
+  border: 7px solid #fffef9;
+  box-shadow: 0 12px 28px #79573b1e;
+}
+.hero-button { border-radius: 19px; font-size: 18px; }
+.hero-helper { font-size: 12px; color: #607c69; }
+.today-card {
+  border: 2px solid #e8ecd9;
+  background: #fffefa;
+  border-radius: 28px;
+  box-shadow: 0 8px 21px #53785612;
+  padding: 20px 23px;
+  gap: 20px;
+}
+.today-symbol {
+  width: 86px; height: 86px; flex-basis: 86px;
+  background: #ffeecb;
+  border: 4px solid #fff8e5;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.today-card strong { font-size: 21px; color: #2e5644; }
+.today-card p { font-size: 14px; color: #5e7769; }
+.today-link {
+  background: #e7f5e4;
+  border: 2px solid #d6e9ce;
+  border-radius: 17px;
+  color: #28644d;
+  min-height: 52px;
+  font-size: 14px;
+}
+.section-heading h2 { font-size: clamp(28px, 3.4vw, 37px); }
+.section-heading p { font-size: 14px; }
+
+/* Three learning destinations, plus separate parent-guided adventures. */
+.module-grid { gap: clamp(13px, 2vw, 22px); }
+.module-card {
+  min-height: 267px;
+  border: 3px solid #ffffffed;
+  border-radius: 32px;
+  padding: 23px;
+  color: #244b42;
+  box-shadow: 0 8px 0 #a5b89b18, 0 16px 25px #456b5111;
+}
+.module-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+.module-card:active { transform: scale(.985); }
+.module-words { background: linear-gradient(150deg, #ffdfc9, #fff0e0); }
+.module-shapes { background: linear-gradient(150deg, #e9e3ff, #f6edff); }
+.module-memory { background: linear-gradient(150deg, #ddf2e3, #eefbea); }
+.module-numbers { background: linear-gradient(150deg, #dceeff, #edf7ff); }
+.module-music { background: linear-gradient(150deg, #fff0bc, #fff9df); }
+.module-missions { background: linear-gradient(150deg, #ffe0eb, #fff0f5); }
+.module-icon {
+  width: 108px; height: 108px;
+  font-size: 59px;
+  border: 3px solid #ffffffda;
+  border-radius: 32px;
+  background: #ffffffa4;
+  box-shadow: inset 0 3px 6px #ffffff99;
+}
+.module-step { color: #547668; font-size: 12px; opacity: .75; }
+.module-name strong { font-size: clamp(19px, 2.2vw, 25px); line-height: 1.2; }
+.module-arrow {
+  width: 43px; height: 43px; flex-basis: 43px;
+  background: #ffffffce;
+  color: #2c5e51;
+  border-radius: 50%;
+}
+.module-card p { color: #516e61; font-size: 14px; line-height: 1.48; }
+.together-banner {
+  padding: 24px 27px;
+  border: 2px dashed #bfddc5;
+  border-radius: 28px;
+  background: linear-gradient(110deg, #e9f7e7, #f8f9e8);
+}
+.together-banner > span { border: 2px solid #e3f0da; color: #d88268; }
+.together-banner strong { font-size: 18px; }
+.together-banner p { color: #526f5c; font-size: 14px; }
+
+/* Standalone Find the Animal activity — outside the three learning areas. */
+.find-home-banner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 23px;
+  margin: 21px 0 26px;
+  padding: 21px 27px;
+  border: 3px solid #fffefa;
+  border-radius: 31px;
+  background: linear-gradient(115deg, #daf5df, #f0f9e6 60%, #e5f3ff);
+  box-shadow: 0 11px 22px #416c5018;
+  color: #2a5e4a;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.find-home-banner:hover { transform: translateY(-3px); box-shadow: 0 16px 27px #416c5024; }
+.find-home-pictures { display: flex; align-items: center; padding: 4px 9px; }
+.find-home-pictures img {
+  width: 83px; height: 83px; object-fit: cover;
+  border: 4px solid #ffffff;
+  border-radius: 23px;
+  box-shadow: 0 4px 10px #3c5d481b;
+  background: #bce3f6;
+}
+.find-home-pictures img + img { margin-left: -19px; }
+.find-home-pictures img:nth-child(2) { transform: rotate(7deg); }
+.find-home-pictures img:nth-child(3) { transform: rotate(-6deg); }
+.find-home-copy { display: flex; flex-direction: column; gap: 4px; }
+.find-home-copy strong { font-size: clamp(23px, 2.6vw, 30px); font-weight: 900; line-height: 1.2; }
+.find-home-copy > span:last-child { font-size: 15px; color: #557765; }
+.find-home-arrow {
+  display: grid; place-items: center;
+  width: 55px; height: 55px;
+  border-radius: 19px;
+  background: #28715b;
+  color: white;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.find-game-heading { max-width: 780px; margin: 24px auto; text-align: center; }
+.find-game-heading h1 { margin: 15px 0 9px; font-size: clamp(38px, 5.5vw, 62px); letter-spacing: -1.5px; }
+.find-game-heading p { color: #577469; font-size: 18px; }
+.find-parent-tip { max-width: 920px; margin: 0 auto 25px; }
+.find-question-box {
+  max-width: 860px;
+  margin: 0 auto 26px;
+  padding: 23px 28px 25px;
+  border: 3px solid #fffdf7;
+  border-radius: 32px;
+  background: linear-gradient(110deg, #fff0d8, #fff9e8 58%, #eaf6e8);
+  box-shadow: 0 11px 23px #987b4d16;
+  text-align: center;
+}
+.find-question-kicker { color: #628069; font-size: 12px; font-weight: 900; letter-spacing: 1.7px; }
+.find-question-box h2 { margin: 7px 0 18px; font-size: clamp(30px, 4vw, 45px); line-height: 1.15; }
+.find-question-box h2 strong { color: #cc7652; }
+.find-hear-button { min-width: 220px; font-size: 18px; }
+.find-choices {
+  display: grid;
+  grid-template-columns: repeat(var(--find-columns, 3), minmax(0, 1fr));
+  gap: clamp(13px, 2.5vw, 25px);
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.find-choice {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 5px solid #fffdf8;
+  border-radius: 32px;
+  background: #d5edfc;
+  box-shadow: 0 8px 0 #d6dacb66, 0 14px 23px #446d5322;
+  cursor: pointer;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.find-choice:hover { transform: translateY(-3px); box-shadow: 0 12px 25px #466b5628; }
+.find-choice:active { transform: scale(.98); }
+.find-choice img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.find-choice-label {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 38px 10px 18px;
+  background: linear-gradient(180deg, transparent 0%, #1a453869 45%, #153d31d9 100%);
+  color: #fff;
+  pointer-events: none;
+  text-align: center;
+}
+.find-choice-label strong { font-size: clamp(20px, 2.8vw, 30px); text-shadow: 0 2px 4px #1637296e; }
+.find-choice.is-found { border-color: #73d2a5; box-shadow: 0 0 0 5px #c5f0d7, 0 12px 25px #3a775b28; }
+.find-game-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 106px;
+  padding: 19px 0 8px;
+  text-align: center;
+}
+.find-game-feedback p { margin: 0; color: #346b52; font-size: 20px; font-weight: 800; }
+.find-next-button[hidden] { display: none !important; }
+.find-game-note { text-align: center; margin: 12px auto 35px; }
+
+/* All learning screens */
+.activity-top { gap: 13px; margin: 5px 0 14px; }
+.back-link {
+  border: 2px solid #d9ebd6;
+  background: #e8f4e4;
+  color: #25644e;
+  font-size: 15px;
+  font-weight: 850;
+  border-radius: 18px;
+  padding: 11px 20px;
+  min-height: 52px;
+}
+.back-link:hover { background: #dbedd6; }
+.activity-heading { max-width: 760px; margin: 25px auto 21px; }
+.activity-heading h1 { font-size: clamp(36px, 5.6vw, 60px); letter-spacing: -1.8px; }
+.activity-heading p { color: #60796c; font-size: 17px; line-height: 1.55; }
+.parent-prompt, .family-offscreen {
+  background: #eef8e8;
+  border: 2px solid #d9ebcf;
+  border-radius: 25px;
+  box-shadow: none;
+  padding: 18px 23px;
+}
+.parent-prompt .symbol { color: #397a5a; font-size: 30px; }
+.parent-prompt strong, .family-offscreen strong { color: #315d47; font-size: 17px; }
+.parent-prompt p, .family-offscreen p { color: #547363; font-size: 15px; line-height: 1.55; }
+.tab-row { gap: 11px; margin-bottom: 25px; }
+.tab, .journey-age-tab, .voice-tab {
+  min-height: 54px;
+  border: 2px solid #d9e5d6;
+  background: #fffefa;
+  color: #365e4e;
+  border-radius: 19px;
+  font-size: 15px;
+  font-weight: 850;
+  padding: 12px 22px;
+}
+.tab.active, .journey-age-tab.active, .voice-tab.active {
+  color: #fff;
+  background: #2a735c;
+  border-color: #2a735c;
+  box-shadow: 0 5px 0 #16523821;
+}
+.activity-grid { gap: clamp(12px, 2vw, 22px); }
+.play-tile {
+  min-height: 220px;
+  border: 4px solid #fffdf9;
+  border-radius: 29px;
+  background: #fff0e1;
+  box-shadow: 0 8px 0 #c7c4a638, 0 12px 21px #8a806b0c;
+  padding: 18px;
+  color: #2b5246;
+}
+.play-tile:nth-child(3n + 2) { background: #f0eafe; }
+.play-tile:nth-child(3n) { background: #e8f6ee; }
+.play-tile strong { font-size: clamp(21px, 2.4vw, 27px); }
+.play-tile:active, .play-tile.played { transform: scale(.975); }
+
+/* Keep original full-bleed PNG / animated GIF artwork unobstructed. */
+.play-tile.word-photo-card {
+  padding: 0;
+  min-height: 0;
+  background: #fffdf6;
+  border: 4px solid #fffdfb;
+  border-radius: 29px;
+  box-shadow: 0 8px 0 #c7c4a63a, 0 13px 23px #365e4914;
+}
+.play-tile.word-photo-card img { width: 100%; height: auto; object-fit: contain; border-radius: 0; }
+.word-photo-label {
+  padding: 36px 12px 15px;
+  background: linear-gradient(180deg, transparent 0%, #173b3055 42%, #173b30e6 100%);
+}
+.play-tile.word-photo-card .word-photo-label strong {
+  font-size: clamp(21px, 2.6vw, 29px);
+  color: #fff;
+  text-shadow: 0 2px 4px #102c23a0;
+}
+/* Everyday-word pictures move briefly on tap, with no play badges or autoplay.
+   Each word gets a different gentle motion; the original photograph is unchanged. */
+.word-photo-card.word-animating img {
+  transform-origin: 50% 55%;
+  animation: ld-sway 2.4s ease-in-out both;
+}
+.word-photo-card.word-animating[data-word="ball"] img { animation-name: ld-roll; }
+.word-photo-card.word-animating[data-word="cat"] img { animation-name: ld-bounce; }
+.word-photo-card.word-animating[data-word="milk"] img { animation-name: ld-tip; }
+.word-photo-card.word-animating[data-word="apple"] img { animation-name: ld-wiggle; }
+.word-photo-card.word-animating[data-word="water"] img { animation-name: ld-ripple; }
+.word-photo-card.word-animating[data-word="house"] img { animation-name: ld-glow; }
+.word-photo-card.word-animating[data-word="sun"] img { animation-name: ld-sunshine; }
+.word-photo-card.word-animating[data-word="flower"] img { animation-name: ld-sway; }
+.word-photo-card.word-animating[data-word="book"] img { animation-name: ld-page; }
+.word-photo-card.word-animating[data-word="car"] img { animation-name: ld-drive; }
+.word-photo-card.word-animating[data-word="hand"] img { animation-name: ld-wave; }
+.word-photo-card.word-animating[data-word="shoe"] img { animation-name: ld-step; }
+/* No fake GIF paths: new animal artwork has its own gentle tap feedback. */
+.word-photo-card.animal-animating img {
+  transform-origin: 50% 65%;
+  animation: ld-lion-move 2.5s ease-in-out both;
+}
+.word-photo-card.animal-animating[data-animal="lion"] img { animation-name: ld-lion-move; }
+.word-photo-card.animal-animating[data-animal="tiger"] img { animation-name: ld-tiger-move; }
+.word-photo-card.animal-animating[data-animal="hen"] img { animation-name: ld-hen-move; }
+@keyframes ld-lion-move {
+  0%, 100% { transform: rotate(0); }
+  30%, 65% { transform: rotate(-2deg); }
+}
+@keyframes ld-tiger-move {
+  0%, 100% { transform: translateX(0); }
+  32% { transform: translateX(7px); }
+  68% { transform: translateX(-4px); }
+}
+@keyframes ld-hen-move {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  28%, 65% { transform: translateY(5px) rotate(2deg); }
+  46% { transform: translateY(0) rotate(-2deg); }
+}
+@keyframes ld-roll {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  30% { transform: translateX(6px) rotate(4deg); }
+  65% { transform: translateX(-6px) rotate(-4deg); }
+}
+@keyframes ld-bounce {
+  0%, 100% { transform: translateY(0); }
+  25%, 65% { transform: translateY(-6px); }
+  43%, 82% { transform: translateY(3px); }
+}
+@keyframes ld-tip {
+  0%, 100% { transform: rotate(0); }
+  35%, 66% { transform: rotate(-3deg); }
+}
+@keyframes ld-wiggle {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(-3deg); }
+  40%, 80% { transform: rotate(3deg); }
+}
+@keyframes ld-ripple {
+  0%, 100% { filter: saturate(1) brightness(1); }
+  25%, 70% { filter: saturate(1.25) brightness(1.15); }
+}
+@keyframes ld-glow {
+  0%, 100% { filter: brightness(1); }
+  45% { filter: brightness(1.14); }
+}
+@keyframes ld-sunshine {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  50% { filter: brightness(1.18) saturate(1.2); }
+}
+@keyframes ld-sway {
+  0%, 100% { transform: rotate(0); }
+  25%, 75% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes ld-page {
+  0%, 100% { transform: perspective(500px) rotateY(0); }
+  35%, 70% { transform: perspective(500px) rotateY(-7deg); }
+}
+@keyframes ld-drive {
+  0%, 100% { transform: translateX(0); }
+  35% { transform: translateX(9px); }
+  70% { transform: translateX(-6px); }
+}
+@keyframes ld-wave {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(-4deg); }
+  40%, 80% { transform: rotate(4deg); }
+}
+@keyframes ld-step {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  30% { transform: translateY(-7px) rotate(-3deg); }
+  65% { transform: translateY(1px) rotate(2deg); }
+}
+.feedback { color: #2b7655; font-size: 23px; }
+.little-note { color: #667b69; font-size: 15px; line-height: 1.6; }
+.shape-visual { width: 122px; height: 122px; }
+.color-dot { border: 7px solid #ffffffb8; box-shadow: inset -7px -10px 14px #0000000c, 0 7px 15px #49715b1b; }
+.activity-grid.numbers-grid { gap: 18px; }
+.play-tile.number-card {
+  border: 4px solid #fffdf6;
+  min-height: 196px;
+  border-radius: 27px;
+  background: #ffe4d0;
+}
+.play-tile.number-card:nth-child(5n + 2) { background: #e4efff; }
+.play-tile.number-card:nth-child(5n + 3) { background: #eee7ff; }
+.play-tile.number-card:nth-child(5n + 4) { background: #e2f4e6; }
+.play-tile.number-card:nth-child(5n) { background: #fff1c5; }
+.number-card .number-digit {
+  min-height: 108px;
+  font-size: clamp(80px, 8vw, 116px);
+  letter-spacing: -3px;
+  color: #276952;
+  text-shadow: 0 3px 0 #ffffff91;
+}
+.play-tile.number-card strong { font-size: clamp(19px, 2vw, 25px); }
+.peek-card, .mission {
+  background: linear-gradient(140deg, #efe9ff, #fff3e9);
+  border: 4px solid #fffefa;
+  border-radius: 36px;
+  box-shadow: 0 14px 30px #625d7a15;
+  padding: 35px 28px;
+}
+.peek-hidden { background: #ddd4f6; color: #8171ac; border: 5px solid #f9f7ff; }
+.mission { background: linear-gradient(140deg, #e9f7e9, #fff5dc); }
+.mission p { color: #536c60; font-size: 17px; }
+.action-card {
+  border: 4px solid #fffdfb;
+  border-radius: 31px;
+  box-shadow: 0 8px 0 #b5b7aa29;
+}
+.action-card strong { color: #2b5145; font-size: 25px; }
+.action-card small { color: #526d61; font-size: 15px; }
+.bubble-stage {
+  border: 5px solid #fffdfb;
+  border-radius: 37px;
+  background: linear-gradient(155deg, #e0f2ff, #eff5ff 48%, #f4f9e5);
+  box-shadow: 0 10px 30px #799ab51a;
+}
+
+/* Guided three-step adventures, including the finish screen. */
+.together-intro {
+  border: 3px solid #fffefa;
+  border-radius: 39px;
+  background: linear-gradient(115deg, #ffeadc, #fff2de 58%, #e8f4ed);
+  box-shadow: var(--shadow);
+}
+.together-intro h1 { font-size: clamp(40px, 5.1vw, 61px); }
+.together-intro p { color: #516f61; font-size: 17px; }
+.together-intro-bear { border: 9px solid #fffdf9; border-radius: 37%; }
+.journey-age-tabs { gap: 12px; }
+.journey-grid { gap: 20px; }
+.journey-card {
+  border: 4px solid #fffefa;
+  border-radius: 32px;
+  box-shadow: 0 9px 0 #c8c9b029, 0 16px 24px #49634a13;
+}
+.journey-card-image { min-height: 197px; padding: 20px; }
+.journey-card-image img { width: 169px; height: 169px; border: 7px solid #fff; border-radius: 29px; }
+.journey-card-body { padding: 22px; }
+.journey-card-body strong { font-size: 23px; color: #315449; }
+.journey-card-description { font-size: 15px; color: #5a7666; }
+.journey-card-cta { color: #207359; font-size: 15px; }
+.journey-play {
+  border: 3px solid #fffdf9;
+  border-radius: 38px;
+  background: #fffefa;
+  box-shadow: var(--shadow);
+}
+.journey-play-picture { background: #fef3e5; border-radius: 30px; }
+.journey-play-picture img { border-radius: 26px; }
+.journey-play-copy h1 { letter-spacing: -1.4px; }
+.journey-instruction { color: #4d695d; font-size: 18px; line-height: 1.6; }
+.journey-parent-cue { border-radius: 22px; background: #ebf7e9; border: 1px solid #d9ead4; }
+.journey-controls { gap: 12px; }
+.journey-finish {
+  border: 3px solid #fffaf3;
+  border-radius: 39px;
+  background: linear-gradient(145deg, #e8f6e7, #fff3df);
+  box-shadow: var(--shadow);
+}
+.journey-finish-icon { background: #fffaf1; color: #df8c67; }
+
+/* Family gallery: portrait visibility stays more important than decoration. */
+.family-home-banner {
+  background: linear-gradient(110deg, #ffe8da, #fff2df 60%, #f1eaff);
+  border: 3px solid #fffcf6;
+  border-radius: 31px;
+  box-shadow: 0 10px 24px #ad806421;
+}
+.family-banner-icon { border: 2px solid #ffdfc7; border-radius: 26px; }
+.family-banner-copy strong { color: #2e5547; }
+.family-banner-copy p { color: #586f63; font-size: 15px; }
+.family-banner-arrow { border-radius: 18px; background: #28715b; }
+.family-stage-header {
+  border: 3px solid #fffefa;
+  border-radius: 32px;
+  background: linear-gradient(115deg, #ffe8d9, #f6f8e8);
+  box-shadow: var(--shadow);
+}
+.family-gallery-grid { gap: 22px; }
+.family-person-card {
+  border: 5px solid #fffefa;
+  border-radius: 31px;
+  background: #fdf2e3;
+  box-shadow: 0 10px 24px #876f481d;
+}
+.family-person-overlay {
+  padding: 49px 14px 17px;
+  background: linear-gradient(180deg, transparent 0%, #1b473a61 50%, #1b473aeb 100%);
+}
+.family-person-caption { color: #edffed; font-size: 14px; }
+.family-empty { background: #fff7ed; border: 3px dashed #eed5b8; border-radius: 30px; }
+
+/* Parent tools share the same styling, but avoid playful controls inside forms. */
+.modal {
+  border: 2px solid #fffdf8;
+  background: #fffaf3;
+  border-radius: 30px;
+  box-shadow: 0 26px 80px #203d3152;
+  padding: clamp(18px, 3vw, 30px);
+  max-height: min(90dvh, 900px);
+  overscroll-behavior: contain;
+}
+.modal::backdrop { background: #203e3480; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.modal h2 { font-size: clamp(26px, 3.6vw, 36px); }
+.modal input:not([type=checkbox]), .modal select, .voice-studio-select {
+  min-height: 54px;
+  border: 2px solid #dbe6d7;
+  background: #fffefa;
+  border-radius: 15px;
+  color: #244b40;
+  padding: 11px 14px;
+  font-size: 16px;
+}
+.modal label { font-size: 14px; }
+.close-button { min-width: 49px; min-height: 49px; border-radius: 16px; background: #edf4e8; }
+.note, .media-credits {
+  background: #eef6e9;
+  border: 1px solid #d9e7d3;
+  border-radius: 16px;
+  color: #486e59;
+}
+.stat { background: #fffefa; border: 2px solid #e7eadf; border-radius: 18px; }
+.stat strong { color: #287057; font-size: 28px; }
+.stat small { font-size: 12px; }
+.progress-line { padding: 11px 3px; font-size: 14px; }
+.family-parent-entry, .voice-studio-entry {
+  border: 2px solid #e2eada;
+  border-radius: 23px;
+  background: #f6faef;
+  padding: 16px;
+}
+.family-parent-entry strong, .voice-studio-entry strong { font-size: 17px; }
+.family-parent-entry p, .voice-studio-entry p { font-size: 14px; line-height: 1.5; }
+.family-parent-entry .button, .voice-studio-entry .button { min-height: 50px; }
+.voice-studio-modal, .family-modal { width: min(850px, calc(100% - 24px)); }
+.voice-studio-mark, .family-intro-emoji { background: #ffebd9; border-radius: 24px; }
+.voice-studio-preview {
+  background: linear-gradient(115deg, #ffebdf, #fff7e6 58%, #e9f5e8);
+  border: 3px solid #fffdf8;
+  border-radius: 27px;
+}
+.voice-studio-preview img { border-radius: 21px; }
+.voice-studio-controls { gap: 12px; }
+.voice-studio-controls .button, .family-voice-actions .button { min-height: 53px; font-size: 14px; }
+.voice-studio-transfer, .family-transfer, .family-voice-box {
+  border: 2px solid #dbe9d3;
+  border-radius: 23px;
+  background: #f0f8ed;
+}
+.family-member-form { border: 2px solid #f1dfc9; border-radius: 25px; background: #fff8f0; }
+.family-photo-preview { border: 4px solid white; border-radius: 22px; }
+.family-list-card { border-radius: 19px; }
+.break-modal .big-symbol { font-size: 71px; }
+.footer { border-top: 1px solid #e4e9df; color: #557363; font-size: 12px; }
+
+/* Tablet / iPad: generous spacing without awkward one-card-wide rows. */
+@media (max-width: 990px) {
+  .page { padding: 23px 21px 56px; }
+  .hero { grid-template-columns: 1fr .85fr; padding: 36px; }
+  .hero-art img { width: 238px; height: 238px; }
+  .hero-art::before { width: 260px; height: 260px; }
+  .module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .module-grid .module-card:last-child { grid-column: 1 / -1; }
+  .journey-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .activity-grid.numbers-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Small screens: large text and targets without horizontal scrolling. */
+@media (max-width: 650px) {
+  .topbar { padding: 10px 14px; }
+  .brand { gap: 9px; font-size: 17px; }
+  .brand-mark { width: 42px; height: 42px; font-size: 31px; border-radius: 14px; }
+  .brand small { font-size: 8px; letter-spacing: 1.3px; }
+  .parent-link { min-height: 48px; padding: 9px 12px; font-size: 13px; }
+  .page { padding: 15px 13px 47px; }
+  .hero { display: flex; flex-direction: column; align-items: stretch; padding: 26px 23px; border-radius: 31px; }
+  .hero h1 { font-size: clamp(36px, 9.4vw, 48px); letter-spacing: -1.8px; }
+  .hero-description { font-size: 15px !important; }
+  .hero-actions { align-items: stretch; }
+  .hero-button { width: 100%; justify-content: center; }
+  .hero-helper { display: none; }
+  .hero-art { display: flex; width: 100%; height: 140px; margin: 11px 0 -7px; }
+  .hero-art::before { width: 132px; height: 132px; }
+  .hero-art img { width: 125px; height: 125px; border-width: 4px; }
+  .today-card { margin: 17px 0 25px; padding: 13px; gap: 11px; border-radius: 23px; }
+  .today-symbol { flex-basis: 62px; width: 62px; height: 62px; border-radius: 17px; border-width: 3px; }
+  .today-card strong { font-size: 16px; }
+  .today-card p { font-size: 12px; }
+  .today-card .eyebrow { font-size: 9px; letter-spacing: .7px; }
+  .today-link { min-width: 51px; width: 51px; padding: 10px; justify-content: center; font-size: 0; }
+  .today-link span { font-size: 23px; }
+  .section-heading { margin-top: 25px; }
+  .section-heading h2 { font-size: 29px; }
+  .module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+  .module-card { min-height: 210px; padding: 14px; border-radius: 24px; border-width: 2px; }
+  .module-grid .module-card:last-child {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 86px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: 16px;
+    min-height: 137px;
+  }
+  .module-grid .module-card:last-child .module-icon { grid-row: 1 / 3; margin: 0; }
+  .module-grid .module-card:last-child .module-name strong { font-size: 20px; }
+  .module-grid .module-card:last-child p { margin: 0; }
+  .find-home-banner { gap: 9px; padding: 17px 13px; border-radius: 25px; margin: 18px 0 24px; }
+  .find-home-pictures { padding: 2px 0; }
+  .find-home-pictures img { width: 49px; height: 49px; border-width: 2px; border-radius: 14px; }
+  .find-home-pictures img + img { margin-left: -21px; }
+  .find-home-copy .eyebrow { font-size: 9px; letter-spacing: .7px; }
+  .find-home-copy strong { font-size: 18px; }
+  .find-home-copy > span:last-child { font-size: 12px; line-height: 1.3; }
+  .find-home-arrow { width: 37px; height: 43px; border-radius: 12px; font-size: 20px; }
+  .find-game-heading { margin: 20px auto; }
+  .find-game-heading h1 { font-size: clamp(34px, 8vw, 48px); }
+  .find-game-heading p { font-size: 15px; }
+  .find-question-box { padding: 17px 13px; border-radius: 24px; margin-bottom: 17px; }
+  .find-question-box h2 { font-size: clamp(26px, 7vw, 37px); }
+  .find-hear-button { min-width: 0; width: 100%; }
+  .find-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .find-choice { border-width: 3px; border-radius: 24px; }
+  .find-choice-label { padding: 27px 7px 12px; }
+  .find-choice-label strong { font-size: clamp(18px, 5vw, 25px); }
+  .find-choices.find-three .find-choice:last-child { grid-column: 1 / -1; width: min(65%, 290px); justify-self: center; }
+  .find-game-feedback { min-height: 112px; padding: 19px 0; }
+  .find-game-feedback p { font-size: 17px; }
+  .find-next-button { width: 100%; }
+  .module-icon { width: 76px; height: 76px; border-radius: 23px; font-size: 44px; margin-bottom: 11px; }
+  .module-name strong { font-size: 17px; letter-spacing: -.3px; }
+  .module-arrow { width: 28px; height: 28px; flex-basis: 28px; font-size: 14px; }
+  .module-card p { font-size: 12px; line-height: 1.4; }
+  .together-banner { padding: 17px; gap: 11px; }
+  .together-banner strong { font-size: 16px; }
+  .together-banner p { font-size: 13px; }
+  .activity-top { align-items: start; gap: 9px; }
+  .activity-top .eyebrow { text-align: right; font-size: 10px; line-height: 1.5; }
+  .back-link { min-height: 49px; white-space: nowrap; padding: 11px 14px; font-size: 14px; }
+  .activity-heading h1 { font-size: clamp(35px, 9vw, 46px); }
+  .activity-heading p { font-size: 15px; }
+  .parent-prompt { padding: 13px 15px; border-radius: 20px; }
+  .parent-prompt p { font-size: 13px; }
+  .tab-row { gap: 9px; }
+  .tab { min-height: 52px; font-size: 14px; padding: 11px 16px; }
+  .activity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+  .play-tile { min-height: 170px; padding: 11px; border-width: 3px; border-radius: 22px; }
+  .play-tile.word-photo-card { border-width: 3px; border-radius: 22px; }
+  .word-photo-label { padding: 34px 8px 12px; }
+  .play-tile.word-photo-card .word-photo-label strong { font-size: clamp(19px, 5vw, 24px); }
+  .activity-grid.numbers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+  .play-tile.number-card { min-height: 170px; padding: 12px; }
+  .number-card .number-digit { min-height: 94px; font-size: clamp(77px, 18vw, 105px); }
+  .play-tile.number-card strong { font-size: 21px; }
+  .journey-grid { grid-template-columns: 1fr; }
+  .journey-card { border-width: 3px; }
+  .journey-card-description { font-size: 13px; }
+  .together-intro { padding: 26px 21px; }
+  .together-intro h1 { font-size: 39px; }
+  .together-intro p { font-size: 15px; }
+  .journey-play { border-radius: 27px; }
+  .journey-instruction { font-size: 16px; }
+  .journey-controls .button { width: 100%; }
+  .family-home-banner { border-radius: 24px; }
+  .family-banner-icon { width: 61px; height: 61px; flex-basis: 61px; font-size: 37px; }
+  .family-banner-copy strong { font-size: 23px; }
+  .family-banner-copy p { font-size: 12px; }
+  .family-stage-header { border-radius: 26px; padding: 19px; }
+  .family-stage-icon { width: 64px; height: 64px; flex-basis: 64px; font-size: 36px; }
+  .modal { border-radius: 23px; padding: 17px; width: calc(100% - 18px); }
+  .voice-studio-modal, .family-modal { width: calc(100% - 18px); }
+  .modal input:not([type=checkbox]), .modal select { font-size: 16px; }
+  .voice-studio-preview img { width: 90px; height: 90px; flex-basis: 90px; }
+  .voice-studio-preview strong { font-size: 18px; }
+  .family-photo-preview { width: 99px; height: 99px; flex-basis: 99px; }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stat { padding: 12px 5px; }
+  .stat strong { font-size: 23px; }
+  .footer { padding: 19px 15px max(22px, env(safe-area-inset-bottom)); font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .module-grid { grid-template-columns: 1fr; }
+  .module-card { min-height: 140px; display: grid; grid-template-columns: 82px minmax(0, 1fr); grid-template-rows: auto auto; gap: 3px 13px; }
+  .module-icon { grid-row: 1 / 3; margin: 0; }
+  .module-name strong { font-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

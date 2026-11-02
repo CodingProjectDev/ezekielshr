@@ -1,0 +1,46 @@
+LITTLE DISCOVERIES: NUMBERS 1–10 + REAL-MOTION ANIMALS
+
+THIS UPDATE INCLUDES
+- Big, colorful digits 1 to 10 in Little Numbers (no counting-dot cards).
+- Spoken number names when tapped, including Six through Ten.
+- Real animal GIFs in First Words > Animals (not static-image zooms).
+- Static animal-photo fallback when the device prefers reduced motion.
+- New offline cache version so the installed PWA can update.
+- Animal footage creator/license credits in Grown-ups settings.
+- The previous home-screen cleanup: only First Words, Colors & Shapes,
+  and Little Numbers are shown as learning areas.
+
+APPLY TO YOUR EXISTING PROJECT ON MAC
+1. Download Little-Discoveries-Numbers-and-Animals-Update.zip.
+2. Open VS Code's terminal in the existing Little-Discoveries-V2 folder.
+3. If you have newer changes, back up or review those files first.
+4. Unzip directly into the current project:
+
+   unzip -o ~/Downloads/Little-Discoveries-Numbers-and-Animals-Update.zip -d .
+
+5. Build the new installable PWA/Android web files:
+
+   npm run build
+
+6. Run tests (optional):
+
+   npm test
+
+7. For your published PWA, deploy the updated project and then reopen
+   the installed app on your iPad while online. Let the new animation files
+   download before using the app offline.
+
+8. For your Android project, sync the new web files:
+
+   npm run android:sync
+
+NOTES
+- This patch is based on the Little-Discoveries-V2(2).zip uploaded on
+  October 26, combined with the three-learning-areas update.
+- It does not erase locally recorded voices or family photos, but it does
+  replace the listed source files when unzipped with -o.
+- GIFs use authentic licensed animal footage. The bird is a black swan;
+  sheep footage has gentle head motion rather than a walk.
+- Six GIFs together add about 13 MB to the offline asset cache.
+- All creator attributions and license links remain in
+  assets/animals/CREDITS.md and in-app Grown-ups settings.
