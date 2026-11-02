@@ -5,7 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outputRoot = join(projectRoot, 'www');
 const files = [
-  'index.html', 'repair-cache.html', 'app.js', 'pictures.js', 'pictures.css', 'voice-studio.js', 'family.js', 'style.css', 'design.css', 'voice-studio.css', 'family.css', 'storybook.css', 'sw.js',
+  'index.html', 'app.js', 'pictures.js', 'pictures.css', 'voice-studio.js', 'family.js', 'style.css', 'design.css', 'voice-studio.css', 'family.css', 'storybook.css', 'sw.js',
   'manifest.webmanifest', 'icon.png', 'icon-192.png', 'icon-512.png',
 ];
 
